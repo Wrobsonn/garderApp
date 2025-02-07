@@ -49,7 +49,10 @@ class CompanyController extends AbstractController
         $formNotCompanyUser->handleRequest($request);
         if ($formNotCompanyUser->isSubmitted() && $formNotCompanyUser->isValid()) {
             $formData = $formNotCompanyUser->getData();
-            $notCompanyUser = $this->userRepository->find( $formData['user_not_company']);
+            if (null === $formData['user_not_company']) {
+                return $this->redirectToRoute('company_index');
+            }
+            $notCompanyUser = $this->userRepository->find($formData['user_not_company']);
             $notCompanyUser->setCompany($company);
             $this->entityManager->flush();
 
