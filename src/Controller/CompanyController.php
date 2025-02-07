@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Companies;
 use App\Form\CompaniesFormType;
+use App\Repository\CompaniesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,15 +22,16 @@ class CompanyController extends AbstractController
     public function companyIndex(Request $request): Response
     {
         $user = $this->getUser();
-        if (null === $user->getCompany()) {
+        $company = $user->getCompany();
+        if (null === $company) {
             $formCompany = $this->createForm(CompaniesFormType::class, []);
 
             $formCompany->handleRequest($request);
             if ($formCompany->isSubmitted() && $formCompany->isValid()) {
                 $formData = $formCompany->getData();
-                $company = Companies::create($formData['company_name']);
-                $this->entityManager->persist($company);
-                $user->setCompany($company);
+                $newCompany = Companies::create($formData['company_name']);
+                $this->entityManager->persist($newCompany);
+                $user->setCompany($newCompany);
                 $this->entityManager->flush();
 
                 return $this->redirectToRoute('company_index');
@@ -41,6 +43,8 @@ class CompanyController extends AbstractController
         }
 
         return $this->render('company/index.html.twig', [
+            'company' => $company,
+            'companyUsers' => $company->getUsers(),
         ]);
     }
 }

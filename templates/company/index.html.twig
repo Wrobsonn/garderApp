@@ -6,10 +6,44 @@
     <div class="container">
         <div class="card mt-5">
             <div class="card-title">
-                Firma
+                Nazwa firmy: {{ company.name }}
             </div>
             <div class="card-body">
-               Firma body
+                <div class="row">
+                    <div class="card col-6">
+                        <div class="card-title">
+                            <b>Pracownicy</b>
+                        </div>
+                        <div class="card-body">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Imie</th>
+                                    <th>Email</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for companyUser in companyUsers %}
+                                    <tr>
+                                        <td>{{ companyUser.username }}</td>
+                                        <td>{{ companyUser.email }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card col-6">
+                        <div class="card-title">
+                            <b>Dodaj pracownika</b>
+                        </div>
+                        <div class="card-body">
+                            <button class="btn btn-lg btn-info mt-2 mb-2" type="submit">
+                                Dodaj pracownika
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
