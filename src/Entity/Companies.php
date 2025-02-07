@@ -6,9 +6,11 @@ use App\Repository\CompaniesRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: CompaniesRepository::class)]
 #[ORM\Table(name:"company")]
+#[UniqueEntity('name')]
 class Companies
 {
     #[ORM\Id]
@@ -17,6 +19,7 @@ class Companies
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[UniqueEntity]
     private ?string $name = null;
 
     #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'company')]
@@ -72,5 +75,13 @@ class Companies
         }
 
         return $this;
+    }
+
+    public static function create(string $name): self
+    {
+        $company = new Companies;
+        $company->name = $name;
+
+        return $company;
     }
 }

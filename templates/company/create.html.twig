@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }}Firma{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="card mt-5">
+            <div class="card-title">
+                Utwórz firmę
+            </div>
+            <div class="card-body">
+                {%  form_theme formCompany 'bootstrap_5_layout.html.twig' %}
+                {{ form_start(formCompany, {'attr': {'id': 'company_form'}}) }}
+
+                <div class="col-md-4">
+                    <b>Nazwa firmy</b>
+                    {{ form_widget(formCompany.company_name, {'attr': {'class': 'form-select'}}) }}
+                </div>
+
+                <div class="col-md-4">
+                    <button class="btn btn-lg btn-info mt-2 mb-2" type="submit" id="submit_company">
+                        Utwórz firme
+                    </button>
+                </div>
+
+                {{ form_end(formCompany) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
