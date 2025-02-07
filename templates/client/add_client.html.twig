@@ -1,0 +1,48 @@
+{% block content %}
+    <div class="card col-12 mt-2 mb-2">
+        <div class="card-title">
+            <b>Dodaj klienta</b>
+        </div>
+        <div class="card-body">
+            {%  form_theme formCreateClient 'bootstrap_5_layout.html.twig' %}
+            {{ form_start(formCreateClient, {
+                'action': path('client_add'),
+                'method': 'POST',
+                'attr': {
+                    'id': 'client_form'
+                }
+            }) }}
+            <div class="col-md-4">
+                <b>Nazwa klienta</b>
+                {{ form_widget(formCreateClient.client_name, {'attr': {'class': 'form-select'}}) }}
+            </div>
+            <div class="col-md-4">
+                <b>Nazwa firmy</b>
+                {{ form_widget(formCreateClient.company_name, {'attr': {'class': 'form-select'}}) }}
+            </div>
+            <div class="col-md-4">
+                <b>Nip</b>
+                {{ form_widget(formCreateClient.nip, {'attr': {'class': 'form-select'}}) }}
+            </div>
+            <div class="col-md-4">
+                <b>Kod pocztowy</b>
+                {{ form_widget(formCreateClient.post_code, {'attr': {'class': 'form-select'}}) }}
+            </div>
+            <div class="col-md-4">
+                <b>Miasto</b>
+                {{ form_widget(formCreateClient.city, {'attr': {'class': 'form-select'}}) }}
+            </div>
+            <div class="col-md-4">
+                <b>Ulica</b>
+                {{ form_widget(formCreateClient.street, {'attr': {'class': 'form-select'}}) }}
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-lg btn-info mt-2 mb-2" type="submit" id="submit_client">
+                    Utwórz klienta
+                </button>
+            </div>
+
+            {{ form_end(formCreateClient) }}
+        </div>
+    </div>
+{% endblock %}

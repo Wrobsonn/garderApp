@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }}Klienci{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="card mt-5">
+            <div class="card-title">
+                <b>Klienci</b>
+            </div>
+            <div class="card-body">
+                {% if clients|length == 0 %}
+                    <div class="alert alert-info">
+                        <b>Brak klientów</b>
+                    </div>
+                {% else %}
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Nazwa klienta</th>
+                            <th>Nazwa firmy</th>
+                            <th>Nip</th>
+                            <th>Kod pocztowy</th>
+                            <th>Miasto</th>
+                            <th>ulica</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for client in clients %}
+                            <tr>
+                                <td>{{ client.clientName }}</td>
+                                <td>
+                                    {% if client.companyName %}
+                                        {{ client.companyName }}
+                                    {% else %}
+                                        Brak nazwy firmy
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if client.nip %}
+                                        {{ client.nip }}
+                                    {% else %}
+                                       Brak nipu
+                                    {% endif %}
+                                </td>
+                                <td>{{ client.postcode }}</td>
+                                <td>{{ client.city }}</td>
+                                <td>{{ client.street }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+            </div>
+        </div>
+        {{ render(controller('App\\Controller\\ClientController::addClient')) }}
+    </div>
+{% endblock %}
