@@ -38,9 +38,15 @@
                             <b>Dodaj pracownika</b>
                         </div>
                         <div class="card-body">
+                            {%  form_theme formNotCompanyUser 'bootstrap_5_layout.html.twig' %}
+                            {{ form_start(formNotCompanyUser, {'attr': {'id': 'add_user_to_company_form'}}) }}
+                            <b>Wybierz pracownika</b>
+                            {{ form_start(formNotCompanyUser) }}
+                            {{ form_widget(formNotCompanyUser.user_not_company, {'attr': {'class': 'form-control'}}) }}
                             <button class="btn btn-lg btn-info mt-2 mb-2" type="submit">
                                 Dodaj pracownika
                             </button>
+                            {{ form_end(formNotCompanyUser) }}
                         </div>
                     </div>
                 </div>

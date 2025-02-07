@@ -4,7 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Companies;
 use App\Form\CompaniesFormType;
-use App\Repository\CompaniesRepository;
+use App\Form\UserNotCompaniesFormType;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,6 +16,7 @@ class CompanyController extends AbstractController
 {
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
+        private readonly UserRepository $userRepository,
     ){
     }
 
@@ -42,9 +44,22 @@ class CompanyController extends AbstractController
             ]);
         }
 
+        $formNotCompanyUser = $this->createForm(UserNotCompaniesFormType::class, []);
+
+        $formNotCompanyUser->handleRequest($request);
+        if ($formNotCompanyUser->isSubmitted() && $formNotCompanyUser->isValid()) {
+            $formData = $formNotCompanyUser->getData();
+            $notCompanyUser = $this->userRepository->find( $formData['user_not_company']);
+            $notCompanyUser->setCompany($company);
+            $this->entityManager->flush();
+
+            return $this->redirectToRoute('company_index');
+        }
+
         return $this->render('company/index.html.twig', [
             'company' => $company,
             'companyUsers' => $company->getUsers(),
+            'formNotCompanyUser' => $formNotCompanyUser->createView(),
         ]);
     }
 }
