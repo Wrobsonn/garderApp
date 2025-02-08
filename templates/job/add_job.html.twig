@@ -1,0 +1,37 @@
+{% block content %}
+    <div class="card col-12 mt-2 mb-2">
+        <div class="card-title">
+            <b>Dodaj prace</b>
+        </div>
+        <div class="card-body">
+            {%  form_theme formCreateJob 'bootstrap_5_layout.html.twig' %}
+            {{ form_start(formCreateJob, {
+                'action': path('job_add'),
+                'method': 'POST',
+                'attr': {
+                    'id': 'job_form'
+                }
+            }) }}
+            <div class="row">
+                <div class="col-md-4">
+                    <b>Nazwa Pracy</b>
+                    {{ form_widget(formCreateJob.job_name, {'attr': {'class': 'form-select'}}) }}
+                </div>
+                <div class="col-md-4">
+                    <b>Nazwa klienta</b>
+                    {{ form_widget(formCreateJob.client_name, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="col-md-4">
+                    <b>Narzędzia</b>
+                    {{ form_widget(formCreateJob.tools, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-info mt-2 mb-2" type="submit" id="submit_job">
+                    Utwórz prace
+                </button>
+            </div>
+            {{ form_end(formCreateJob) }}
+        </div>
+    </div>
+{% endblock %}

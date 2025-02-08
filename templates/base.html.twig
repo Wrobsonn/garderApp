@@ -28,6 +28,9 @@
                         <li class="nav-item {% if app.request.get('_route') == 'client_index' %}active{% endif %}">
                             <a class="nav-link" href="{{ path('client_index') }}">Klienci</a>
                         </li>
+                        <li class="nav-item {% if app.request.get('_route') == 'job_index' %}active{% endif %}">
+                            <a class="nav-link" href="{{ path('job_index') }}">Prace</a>
+                        </li>
                         <li class="nav-item {% if app.request.get('_route') == 'tool_index' %}active{% endif %}">
                             <a class="nav-link" href="{{ path('tool_index') }}">Narzędzia</a>
                         </li>

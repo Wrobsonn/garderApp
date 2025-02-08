@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }}Prace{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="card mt-5">
+            <div class="card-title">
+                <b>Prace</b>
+            </div>
+            <div class="card-body">
+                {% if jobs|length == 0 %}
+                    <div class="alert alert-info">
+                        <b>Prak prac</b>
+                    </div>
+                {% else %}
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Nazwa klienta</th>
+                            <th>Nazwa pracy</th>
+                            <th>Szacowany czas wykonania</th>
+                            <th>Potrzebne narzędzia</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for job in jobs %}
+                            <tr>
+                                <td>{{ job.name }}</td>
+                                <td>
+                                    {{ job.client.clientName }}
+                                </td>
+                                <td>
+
+                                </td>
+                                <td>
+                                    {% for tool in job.tools %}
+                                        {{ tool }}
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+            </div>
+        </div>
+        {{ render(controller('App\\Controller\\JobController::addJob')) }}
+    </div>
+{% endblock %}
