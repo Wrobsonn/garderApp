@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }}Narzędzia{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row mb-2">
+            <div class="col-6">
+                <div class="card mt-5">
+                    <div class="card-title">
+                        <b>Narzędzia</b>
+                    </div>
+                    <div class="card-body">
+                        {% if tools|length == 0 %}
+                            <div class="alert alert-info">
+                                <b>Brak narzędzi</b>
+                            </div>
+                        {% else %}
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Nazwa</th>
+                                    <th>Czy zarezerwowane</th>
+                                    <th>U kogo</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for tool in tools %}
+                                    <tr>
+                                        <td>{{ tool.name }}</td>
+                                        <td>
+                                            {% if tool.isReserved %}
+                                                Zarezerwowane
+                                            {% else %}
+                                                Wolne
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if tool.client %}
+                                                {{ tool.client.clientName }}
+                                            {% else %}
+                                                Brak przypisanego klienta.
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card mt-5">
+                    {{ render(controller('App\\Controller\\ToolController::addTool')) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% block content %}
+
+    <div class="card-title">
+        <b>Dodaj narzędzie</b>
+    </div>
+    <div class="card-body">
+        {%  form_theme formCreateTool 'bootstrap_5_layout.html.twig' %}
+        {{ form_start(formCreateTool, {
+            'action': path('tool_add'),
+            'method': 'POST',
+            'attr': {
+                'id': 'tool_form'
+            }
+        }) }}
+        <div class="row">
+            <div class="col-md-6">
+                <b>Narzędzie</b>
+                {{ form_widget(formCreateTool.name, {'attr': {'class': 'form-select'}}) }}
+            </div>
+            <div class="col-md-6 mt-2">
+                <button class="btn btn-lg btn-info mt-2 mb-2" type="submit" id="submit_tool">
+                    Utwórz narzędzie
+                </button>
+            </div>
+        </div>
+        {{ form_end(formCreateTool) }}
+    </div>
+
+{% endblock %}
