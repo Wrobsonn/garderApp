@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }}Prace{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="card mt-5">
+            <div class="card-title">
+                <b>Przypisane Prace</b>
+            </div>
+            <div class="card-body">
+                {% if assignedWorks|length == 0 %}
+                    <div class="alert alert-info">
+                        <b>Prak prac</b>
+                    </div>
+                {% else %}
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Nazwa klienta</th>
+                            <th>Nazwa pracy</th>
+                            <th>Szacowany czas wykonania</th>
+                            <th>Potrzebne narzędzia</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for assignedWork in assignedWorks %}
+                            <tr>
+                                <td>{{ assignedWork.job.client.clientname }}</td>
+                                <td>{{ assignedWork.job.name }}</td>
+                                <td>
+                                    {{assignedWork.hour }} godzin {{assignedWork.minute }} minut
+                                </td>
+                                <td>
+                                    {% for tool in assignedWork.job.tools %}
+                                        {{ tool }}
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+            </div>
+        </div>
+        {{ render(controller('App\\Controller\\AssignedWorkController::addAssignedWork')) }}
+    </div>
+{% endblock %}

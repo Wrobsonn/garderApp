@@ -1,0 +1,41 @@
+{% block content %}
+    <div class="card col-12 mt-2 mb-2">
+        <div class="card-title">
+            <b>Dodaj prace dla pracownika</b>
+        </div>
+        <div class="card-body">
+            {%  form_theme formCreateAssignedWork 'bootstrap_5_layout.html.twig' %}
+            {{ form_start(formCreateAssignedWork, {
+                'action': path('assigned_work_add'),
+                'method': 'POST',
+                'attr': {
+                    'id': 'assigned_work_form'
+                }
+            }) }}
+            <div class="row">
+                <div class="col-md-3">
+                    <b>Godziny</b>
+                    {{ form_widget(formCreateAssignedWork.hour, {'attr': {'class': 'form-select'}}) }}
+                </div>
+                <div class="col-md-3">
+                    <b>Minuty</b>
+                    {{ form_widget(formCreateAssignedWork.minute, {'attr': {'class': 'form-select'}}) }}
+                </div>
+                <div class="col-md-3">
+                    <b>Osoba</b>
+                    {{ form_widget(formCreateAssignedWork.user, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="col-md-3">
+                    <b>Praca</b>
+                    {{ form_widget(formCreateAssignedWork.job, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-info mt-2 mb-2" type="submit" id="submit_assigned_work">
+                    Utwórz prace
+                </button>
+            </div>
+            {{ form_end(formCreateAssignedWork) }}
+        </div>
+    </div>
+{% endblock %}
