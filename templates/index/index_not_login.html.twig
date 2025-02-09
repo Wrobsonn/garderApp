@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }}Strona główna{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="card mt-5">
+            <div class="card-body">
+                Za pomocą naszego serwisu będziesz mógł w łatwy sposób zaplanować pracę dla swoich pracowników i wyliczyć ich płacę
+            </div>
+        </div>
+        <div class="card mt-5">
+            <div class="card-header">
+                Panel użytkownika
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Załóż darmowe konto już teraz</h5>
+                <p class="card-text">Zarządzaj swoją firmą bez większych problemów</p>
+                <a href="{{ path('app_register') }}" class="btn btn-primary">Załóż konto</a>
+            </div>
+        </div>
+    </div>
+    <section class="bg-dark mt-2" style="height: 100%">
+        <div class="container text-white">
+            <h3 class="text-center text-white h1 font-weight-lighter" style="padding-top: 120px;">Dane w chmurze</h3>
+            <p class="pt-5 pb-5 font-weight-lighter text-center">Twoje dane będą dostępne w chmurze. Pamiętaj, że masz do nich dostęp z każdego miejsca na ziemi. Po zalogowaniu się masz pełny dostęp do danych swojej firmy i możliwość zarządzania nimi.</p>
+            <div class="row pt-5" style="padding-bottom: 120px;">
+                <div class="col-lg-3 col-md-6">
+                    <div class="member">
+                        <div class="member-info">
+                            <div class="member-info-content">
+                                <h4>1. Zarejestruj się</h4>
+                                <span>Najpierw załóż konto w serwisie</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="member">
+                        <div class="member-info">
+                            <div class="member-info-content">
+                                <h4>2. Zaloguj się</h4>
+                                <span>Nastepnie zaloguj się podanymi danymi podczas rejestracji</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="member">
+                        <div class="member-info">
+                            <div class="member-info-content">
+                                <h4>3. Skonfiguruj firme</h4>
+                                <span>Dodaj dane, którymi chcesz zarządzać (prace, pracowników itp.)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="member">
+                        <div class="member-info">
+                            <div class="member-info-content">
+                                <h4>4. Zarządzaj firmą</h4>
+                                <span>Zarządzaj swoją firmą z dowolnego miejsca</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

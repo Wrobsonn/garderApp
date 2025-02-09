@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }}Strona główna{% endblock %}
+
+{% block content %}
+    <div class="container mb-2">
+        <div class="mt-2">
+            <b>Witaj {{ user.username }}</b>
+        </div>
+    </div>
+{% endblock %}
