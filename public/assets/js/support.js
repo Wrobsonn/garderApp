@@ -2,7 +2,7 @@ const support = {
     init: function() {
        $(document).on('click' , '#view_form', function (){
            support.viewForm();
-        });
+       });
     },
     viewForm: function() {
         const formView = document.getElementById('support_form');

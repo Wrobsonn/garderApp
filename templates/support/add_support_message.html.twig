@@ -1,0 +1,37 @@
+{% block content %}
+    <div class="card col-12 mt-2 mb-2">
+        {% if comments|length == 0 %}
+            <div class="alert alert-info mt-2">
+                <b>Brak komentarzy</b>
+            </div>
+        {% else %}
+            {% for comment in comments %}
+                {{ comment.user.username }}: {{ comment.contents }}
+            {% endfor %}
+        {% endif %}
+        <div class="card-title">
+            <b>Dodaj komentarz</b>
+        </div>
+        <div class="card-body">
+            {%  form_theme formCreateSupportMessage 'bootstrap_5_layout.html.twig' %}
+            {{ form_start(formCreateSupportMessage, {
+                'action': path('support_message_add', { 'id': id }),
+                'method': 'POST',
+                'attr': {
+                    'id': 'support_message_form'
+                }
+            }) }}
+                <div class="col-md-4">
+                    <b>Treść</b>
+                    {{ form_widget(formCreateSupportMessage.contents, {'attr': {'class': 'form-select'}}) }}
+                </div>
+
+                <div class="col-md-4">
+                    <button class="btn btn-info mt-2 mb-2" type="submit" id="submit_support">
+                        Dodaj komentarz
+                    </button>
+                </div>
+            {{ form_end(formCreateSupportMessage) }}
+        </div>
+    </div>
+{% endblock %}

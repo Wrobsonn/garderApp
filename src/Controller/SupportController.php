@@ -2,16 +2,12 @@
 
 namespace App\Controller;
 
-use App\Entity\Companies;
 use App\Entity\Support;
-use App\Entity\Tool;
-use App\Form\CompaniesFormType;
+use App\Entity\SupportMessage;
 use App\Form\SupportFormType;
-use App\Form\ToolFormType;
-use App\Form\UserNotCompaniesFormType;
+use App\Form\SupportMessageFormType;
+use App\Repository\SupportMessageRepository;
 use App\Repository\SupportRepository;
-use App\Repository\ToolRepository;
-use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,7 +19,7 @@ class SupportController extends AbstractController
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
         private readonly SupportRepository $supportRepository,
-        private readonly UserRepository $userRepository,
+        private readonly SupportMessageRepository $supportMessageRepository,
     ){
     }
 
@@ -53,14 +49,14 @@ class SupportController extends AbstractController
         $formCreateSupport->handleRequest($request);
         if ($formCreateSupport->isSubmitted() && $formCreateSupport->isValid()) {
             $formData = $formCreateSupport->getData();
-            $tool = Support::create(
+            $support = Support::create(
                 $formData['name'],
                 $formData['contents'],
                 $user,
                 $company,
             );
 
-            $this->entityManager->persist($tool);
+            $this->entityManager->persist($support);
             $this->entityManager->flush();
 
             return $this->redirectToRoute('support_index');
@@ -68,6 +64,37 @@ class SupportController extends AbstractController
 
         return $this->render('support/add_support.html.twig', [
             'formCreateSupport' => $formCreateSupport->createView(),
+        ]);
+    }
+
+    #[Route('/support_message/add/{id}', name: 'support_message_add')]
+    public function addSupportMessage(Request $request, int $id): Response
+    {
+        $user = $this->getUser();
+
+        $formCreateSupportMessage = $this->createForm(SupportMessageFormType::class, []);
+
+        $formCreateSupportMessage->handleRequest($request);
+        if ($formCreateSupportMessage->isSubmitted() && $formCreateSupportMessage->isValid()) {
+            $formData = $formCreateSupportMessage->getData();
+            $supportMessage = SupportMessage::create(
+                $formData['contents'],
+                $user,
+                $this->supportRepository->find($id),
+            );
+
+            $this->entityManager->persist($supportMessage);
+            $this->entityManager->flush();
+
+            return $this->redirectToRoute('support_index');
+        }
+
+        return $this->render('support/add_support_message.html.twig', [
+            'comments' => $this->supportMessageRepository->findBy([
+                'support' => $this->supportRepository->find($id),
+            ]),
+            'formCreateSupportMessage' => $formCreateSupportMessage->createView(),
+            'id' => $id,
         ]);
     }
 }

@@ -31,16 +31,10 @@
                             <tr>
                                 <td>{{ support.name }}</td>
                                 <td>{{ support.contents }}
-                                <br>
-                                <button class="btn btn-secondary" id="add_message" value="{{ support_id }}">
-                                    Dodaj Komenarz
-                                </button>
+                                    {{ render(controller('App\\Controller\\SupportController::addSupportMessage', { 'id': support.id })) }}
                                 </td>
                                 <td>{{ support.user.username }}</td>
                             </tr>
-                            <div class="d-none" id="message_{{ support.id }}">
-
-                            </div>
                         {% endfor %}
                         </tbody>
                     </table>
