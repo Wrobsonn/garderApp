@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }}Kontakt z klientem{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="card mt-5">
+            <div class="card-title">
+                <b>Kontakt z klientem</b>
+            </div>
+            <div class="card-body">
+                <button class="btn btn-secondary" id="view_form">Pokaż formularz zgoszeniowy</button>
+                <div class="d-none" id="support_form">
+                    {{ render(controller('App\\Controller\\SupportController::addSupport')) }}
+                </div>
+                {% if supports|length == 0 %}
+                    <div class="alert alert-info mt-2">
+                        <b>Brak zgłoszeń</b>
+                    </div>
+                {% else %}
+                    <table class="table mt-2">
+                        <thead>
+                        <tr>
+                            <th>Nazwa</th>
+                            <th>Treść</th>
+                            <th>Osoba</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for support in supports %}
+                            <tr>
+                                <td>{{ support.name }}</td>
+                                <td>{{ support.contents }}
+                                <br>
+                                <button class="btn btn-secondary" id="add_message" value="{{ support_id }}">
+                                    Dodaj Komenarz
+                                </button>
+                                </td>
+                                <td>{{ support.user.username }}</td>
+                            </tr>
+                            <div class="d-none" id="message_{{ support.id }}">
+
+                            </div>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -37,6 +37,9 @@
                         <li class="nav-item {% if app.request.get('_route') == 'assigned_work_index' %}active{% endif %}">
                             <a class="nav-link" href="{{ path('assigned_work_index') }}">Przypisane prace</a>
                         </li>
+                        <li class="nav-item {% if app.request.get('_route') == 'support_index' %}active{% endif %}">
+                            <a class="nav-link" href="{{ path('support_index') }}">Kontakt z klientem</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('app_logout') }}">Wyloguj się</a>
                         </li>
@@ -66,6 +69,7 @@
             <script src="{{ asset('assets/js/popper.min.js') }}"></script>
             <script src="{{ asset('assets/js/jquery-3.4.1.slim.min.js') }}"></script>
             <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+            <script src="{{ asset('assets/js/support.js') }}"></script>
         {% endblock %}
     </body>
 </html>
